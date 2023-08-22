@@ -57,10 +57,29 @@ class Tree {
 
     return node;
   }
+
+  insert(root, key) {
+    if (root === null) {
+      const node = new Node(key);
+      return node;
+    }
+
+    if (key < root.data) {
+      root.left = this.insert(root.left, key);
+      // console.log("yo");
+    } else if (key > root.data) {
+      root.right = this.insert(root.right, key);
+    }
+
+    return root;
+  }
 }
 
 const t = new Tree(test);
 
-// console.log(t);
-
 prettyPrint(t.root);
+
+// prettyPrint(t.insert(t.root, 0));
+// prettyPrint(t.insert(t.root, 100));
+// console.log(t.root);
+// prettyPrint(t.root);
