@@ -83,9 +83,7 @@ class Tree {
       return root;
     }
 
-    // console.log(root);
     return root;
-    // return root.left;
   }
 
   delete(root, key) {
@@ -100,41 +98,40 @@ class Tree {
     } else if (key > root.data) {
       root.right = this.delete(root.right, key);
     } else {
-      if (root.left === null && root.right === null) {
-        // return null;
-        return null;
-      } else if (root.left === null) {
+      if (root.left === null) {
         return root.right;
       } else if (root.right === null) {
         return root.left;
       } else {
-        // root = this.minFinder(root.right, key);
-
-        // console.log(root);
-
         let temp = root;
         temp = this.minFinder(root.right, key);
         root.data = temp.data;
 
         root.right = this.delete(root.right, temp.data);
-        console.log(temp);
-
-        // root = this.delete(root, temp.data);
-        // console.log(temp);
-
-        // console.log(root);
 
         return root;
       }
     }
 
-    // if (root.left === null) {
-    //   // console.log(root);
-    //   // root = root.right;
-    //   return root.right;
-    // } else if (root.right === null) {
-    //   return root.left;
-    // }
+    return root;
+  }
+
+  find(key, root = this.root) {
+    if (root === null) {
+      return "not found";
+    }
+    if (key === root.data) {
+      // console.log(root);
+      return root;
+    }
+
+    if (key < root.data) {
+      root = this.find(key, root.left);
+    } else if (key > root.data) {
+      root = this.find(key, root.right);
+    }
+
+    // console.log(root.data);
     return root;
   }
 }
@@ -143,11 +140,13 @@ const t = new Tree(test);
 
 prettyPrint(t.root);
 
+// console.log(t.find(67));
+// prettyPrint(t.delete(t.root, 67));
+// t.find(67);
 // t.delete(t.root, 6);
 // prettyPrint(t.delete(t.root, 9));
-prettyPrint(t.delete(t.root, 67));
-prettyPrint(t.delete(t.root, 68));
 
 // t.minFinder(t.root, 9);
 // prettyPrint(t.insert(t.root, 0));
 // prettyPrint(t.insert(t.root, 100));
+// prettyPrint(t.delete(t.root, 6345));
