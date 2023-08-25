@@ -174,13 +174,29 @@ class Tree {
 
     return arr;
   }
+
+  inorder(func, root = this.root, arr = []) {
+    if (root === null) return;
+
+    this.inorder(func, root.left, arr);
+    // console.log(root.data);
+    if (func === undefined) {
+      arr.push(root.data);
+    } else {
+      arr.push(func(root.data));
+    }
+    this.inorder(func, root.right, arr);
+
+    return arr;
+  }
 }
 
 const t = new Tree(test);
 
 prettyPrint(t.root);
 
-console.log(t.levelOrder(breadthFirst));
+// console.log(t.levelOrder(breadthFirst));
+console.log(t.inorder(breadthFirst));
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
