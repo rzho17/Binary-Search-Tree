@@ -32,6 +32,14 @@ class Node {
   }
 }
 
+const breadthFirst = (node) => {
+  // if (node !== null) {
+  //   return node;
+  // }
+  return node;
+  // return node * 2;
+};
+
 class Tree {
   constructor(root) {
     this.root = this.buildTree(root);
@@ -134,11 +142,45 @@ class Tree {
     // console.log(root.data);
     return root;
   }
+
+  levelOrder(func, root = this.root) {
+    const queue = [];
+    const arr = [];
+    queue.push(root);
+
+    //start arr with root
+    // while the queue has more than 1 item repeat the algo
+    //if the root has children, push those children into the queue
+    //dequeue the front
+    //if an item is null, return null
+
+    while (queue.length > 0) {
+      const temp = queue.shift();
+
+      if (temp.left !== null) {
+        queue.push(temp.left);
+      }
+
+      if (temp.right !== null) {
+        queue.push(temp.right);
+      }
+
+      if (func === undefined) {
+        arr.push(temp.data);
+      } else {
+        arr.push(func(temp.data));
+      }
+    }
+
+    return arr;
+  }
 }
 
 const t = new Tree(test);
 
 prettyPrint(t.root);
+
+console.log(t.levelOrder(breadthFirst));
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
