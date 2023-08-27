@@ -189,6 +189,19 @@ class Tree {
 
     return arr;
   }
+
+  preorder(func, root = this.root, arr = []) {
+    if (root === null) return;
+
+    if (func === undefined) {
+      arr.push(root.data);
+    } else {
+      arr.push(func(root.data));
+    }
+
+    this.preorder(func, root.left, arr);
+    this.preorder(func, root.right, arr);
+  }
 }
 
 const t = new Tree(test);
@@ -196,7 +209,8 @@ const t = new Tree(test);
 prettyPrint(t.root);
 
 // console.log(t.levelOrder(breadthFirst));
-console.log(t.inorder(breadthFirst));
+// console.log(t.inorder(breadthFirst));
+console.log(t.preorder(breadthFirst));
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
