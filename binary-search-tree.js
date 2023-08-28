@@ -219,6 +219,15 @@ class Tree {
 
     return arr;
   }
+
+  height(node = this.root) {
+    if (node === null) return -1;
+
+    const leftHeight = this.height(node.left);
+    const rightHeight = this.height(node.right);
+
+    return Math.max(leftHeight, rightHeight) + 1;
+  }
 }
 
 const t = new Tree(test);
@@ -226,9 +235,11 @@ const t = new Tree(test);
 prettyPrint(t.root);
 
 // console.log(t.levelOrder(breadthFirst));
-console.log(t.inorder(breadthFirst));
-console.log(t.preorder(breadthFirst));
-console.log(t.postorder(breadthFirst));
+// console.log(t.inorder(breadthFirst));
+// console.log(t.preorder(breadthFirst));
+// console.log(t.postorder(breadthFirst));
+
+console.log(t.height(t.find(3)));
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
