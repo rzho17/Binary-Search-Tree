@@ -228,6 +228,18 @@ class Tree {
 
     return Math.max(leftHeight, rightHeight) + 1;
   }
+
+  depth(node, root = this.root, counter = 0) {
+    if (root === null) return counter;
+
+    if (node.data === root.data) return counter;
+
+    if (node.data < root.data) return this.depth(node, root.left, counter + 1);
+
+    if (node.data > root.data) return this.depth(node, root.right, counter + 1);
+
+    return counter;
+  }
 }
 
 const t = new Tree(test);
@@ -239,7 +251,8 @@ prettyPrint(t.root);
 // console.log(t.preorder(breadthFirst));
 // console.log(t.postorder(breadthFirst));
 
-console.log(t.height(t.find(3)));
+// console.log(t.height(t.find(3)));
+console.log(t.depth(t.find(9)));
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
