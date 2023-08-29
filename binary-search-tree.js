@@ -32,14 +32,6 @@ class Node {
   }
 }
 
-const breadthFirst = (node) => {
-  // if (node !== null) {
-  //   return node;
-  // }
-  return node;
-  // return node * 2;
-};
-
 class Tree {
   constructor(root) {
     this.root = this.buildTree(root);
@@ -66,16 +58,16 @@ class Tree {
     return node;
   }
 
-  insert(root, key) {
+  insert(key, root = this.root) {
     if (root === null) {
       const root = new Node(key);
       return root;
     }
 
     if (key < root.data) {
-      root.left = this.insert(root.left, key);
+      root.left = this.insert(key, root.left);
     } else if (key > root.data) {
-      root.right = this.insert(root.right, key);
+      root.right = this.insert(key, root.right);
     }
 
     return root;
@@ -94,7 +86,7 @@ class Tree {
     return root;
   }
 
-  delete(root, key) {
+  delete(key, root = this.root) {
     if (root === null) {
       return root;
     }
@@ -102,9 +94,9 @@ class Tree {
     // this.minFinder(root.right, key);
 
     if (key < root.data) {
-      root.left = this.delete(root.left, key);
+      root.left = this.delete(key, root.left);
     } else if (key > root.data) {
-      root.right = this.delete(root.right, key);
+      root.right = this.delete(key, root.right);
     } else {
       if (root.left === null) {
         return root.right;
@@ -115,7 +107,7 @@ class Tree {
         temp = this.minFinder(root.right, key);
         root.data = temp.data;
 
-        root.right = this.delete(root.right, temp.data);
+        root.right = this.delete(temp.data, root.right);
 
         return root;
       }
@@ -240,6 +232,25 @@ class Tree {
 
     return counter;
   }
+
+  isBalanced(root = this.root) {
+    let balanced = "";
+    if (root === null) return balanced;
+    const leftHeight = this.height(root.left) + 1;
+    const rightHeight = this.height(root.right) + 1;
+
+    if (Math.abs(leftHeight - rightHeight) <= 1) {
+      // console.log("unbalanced");
+      balanced = "balanced";
+    } else {
+      balanced = "unbalanced";
+    }
+    console.log(leftHeight);
+    console.log(rightHeight);
+
+    // balanced = "balanced";
+    return balanced;
+  }
 }
 
 const t = new Tree(test);
@@ -252,12 +263,20 @@ prettyPrint(t.root);
 // console.log(t.postorder(breadthFirst));
 
 // console.log(t.height(t.find(3)));
-console.log(t.depth(t.find(9)));
+// console.log(t.depth(t.find(9)));
+t.insert(-12312);
+// t.insert(t.root, -12311);
+// t.insert(t.root, 12311);
+t.insert(1232112);
+t.insert(12321);
+// t.insert(t.root, -12);
+console.log(t.isBalanced());
+t.delete(68);
+prettyPrint(t.root);
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
 // t.find(67);
-// t.delete(t.root, 6);
 // prettyPrint(t.delete(t.root, 9));
 
 // t.minFinder(t.root, 9);
