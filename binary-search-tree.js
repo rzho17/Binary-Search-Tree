@@ -234,13 +234,12 @@ class Tree {
   }
 
   isBalanced(root = this.root) {
-    let balanced = "";
+    let balanced;
     if (root === null) return balanced;
     const leftHeight = this.height(root.left) + 1;
     const rightHeight = this.height(root.right) + 1;
 
     if (Math.abs(leftHeight - rightHeight) <= 1) {
-      // console.log("unbalanced");
       balanced = "balanced";
     } else {
       balanced = "unbalanced";
@@ -248,8 +247,14 @@ class Tree {
     console.log(leftHeight);
     console.log(rightHeight);
 
-    // balanced = "balanced";
     return balanced;
+  }
+
+  rebalance() {
+    this.root = this.buildTree(this.inorder());
+
+    return this.root;
+    // return this.inorder();
   }
 }
 
@@ -264,15 +269,17 @@ prettyPrint(t.root);
 
 // console.log(t.height(t.find(3)));
 // console.log(t.depth(t.find(9)));
-t.insert(-12312);
-// t.insert(t.root, -12311);
-// t.insert(t.root, 12311);
+// t.insert(-12312);
+
 t.insert(1232112);
 t.insert(12321);
-// t.insert(t.root, -12);
+t.insert(-12);
 console.log(t.isBalanced());
-t.delete(68);
-prettyPrint(t.root);
+console.log(t.rebalance());
+// console.log(t.isBalanced());
+// t.delete(68);
+prettyPrint(t.rebalance());
+// console.log(t.isBalanced());
 
 // console.log(t.find(67));
 // prettyPrint(t.delete(t.root, 67));
