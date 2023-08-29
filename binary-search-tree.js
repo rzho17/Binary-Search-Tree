@@ -19,11 +19,6 @@ const removeDuplicate = (arr) => {
 
 const sortArray = (arr) => removeDuplicate(arr).sort((a, b) => a - b);
 
-const test = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 68];
-// const test = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-// console.log(sortArray(test));
-
 class Node {
   constructor(data) {
     this.data = data;
@@ -91,8 +86,6 @@ class Tree {
       return root;
     }
 
-    // this.minFinder(root.right, key);
-
     if (key < root.data) {
       root.left = this.delete(key, root.left);
     } else if (key > root.data) {
@@ -117,13 +110,9 @@ class Tree {
   }
 
   find(key, root = this.root) {
-    if (root === null) {
-      return "not found";
-    }
-    if (key === root.data) {
-      // console.log(root);
-      return root;
-    }
+    if (root === null) return "not found";
+
+    if (key === root.data) return root;
 
     if (key < root.data) {
       root = this.find(key, root.left);
@@ -131,7 +120,6 @@ class Tree {
       root = this.find(key, root.right);
     }
 
-    // console.log(root.data);
     return root;
   }
 
@@ -171,7 +159,7 @@ class Tree {
     if (root === null) return;
 
     this.inorder(func, root.left, arr);
-    // console.log(root.data);
+
     if (func === undefined) {
       arr.push(root.data);
     } else {
@@ -254,39 +242,33 @@ class Tree {
     this.root = this.buildTree(this.inorder());
 
     return this.root;
-    // return this.inorder();
   }
 }
 
-const t = new Tree(test);
+const randomArr = Array.from(
+  { length: 100 },
+  () => Math.floor(Math.random() * 100) + 1
+);
 
-prettyPrint(t.root);
+const driverScript = (arr) => {
+  const tree = new Tree(arr);
+  console.log(tree.isBalanced());
+  console.log(tree.inorder());
+  console.log(tree.preorder());
+  console.log(tree.postorder());
 
-// console.log(t.levelOrder(breadthFirst));
-// console.log(t.inorder(breadthFirst));
-// console.log(t.preorder(breadthFirst));
-// console.log(t.postorder(breadthFirst));
+  tree.insert(120);
+  tree.insert(122345);
+  tree.insert(1111);
+  tree.insert(432);
 
-// console.log(t.height(t.find(3)));
-// console.log(t.depth(t.find(9)));
-// t.insert(-12312);
+  console.log(tree.isBalanced());
+  tree.rebalance();
 
-t.insert(1232112);
-t.insert(12321);
-t.insert(-12);
-console.log(t.isBalanced());
-console.log(t.rebalance());
-// console.log(t.isBalanced());
-// t.delete(68);
-prettyPrint(t.rebalance());
-// console.log(t.isBalanced());
+  console.log(tree.isBalanced());
+  console.log(tree.inorder());
+  console.log(tree.preorder());
+  console.log(tree.postorder());
+};
 
-// console.log(t.find(67));
-// prettyPrint(t.delete(t.root, 67));
-// t.find(67);
-// prettyPrint(t.delete(t.root, 9));
-
-// t.minFinder(t.root, 9);
-// prettyPrint(t.insert(t.root, 0));
-// prettyPrint(t.insert(t.root, 100));
-// prettyPrint(t.delete(t.root, 6345));
+driverScript(randomArr);
